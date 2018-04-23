@@ -7,4 +7,4 @@ Run `./build-image.sh` to build and push to the vimc registry. This script is al
 
 ## usage
 This image is used by [Montagu-Api](https://github.com/vimc/montagu-api-Api) 
-and [Kodiak](https://github.com/vimc/kodiak). 
+and [Kodiak](https://github.com/vimc/kodiak).
