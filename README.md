@@ -1,4 +1,4 @@
-# docker-libsodium
+# openjdk-libsodium
 Contains a docker file for an image based on `openjdk` with `libsodium` installed, and script to build, tag and push
 the image to the vimc registry.
 

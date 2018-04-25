@@ -4,7 +4,7 @@ set -e
 GIT_ID=$(git rev-parse --short=7 HEAD)
 GIT_BRANCH=$(git symbolic-ref --short HEAD)
 REGISTRY=docker.montagu.dide.ic.ac.uk:5000
-NAME=libsodium
+NAME=openjdk-libsodium
 LIBSODIUM_VERSION=$(<libsodium-version)
 
 APP_DOCKER_TAG=${REGISTRY}/${NAME}
