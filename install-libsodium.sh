@@ -3,12 +3,12 @@ set -e
 
 mkdir -p lib
 
-libsodium_version=libsodium-1.0.16
+libsodium_version=$(<libsodium-version)
 
-curl https://download.libsodium.org/libsodium/releases/$libsodium_version.tar.gz \
+curl https://download.libsodium.org/libsodium/releases/libsodium-${libsodium_version}.tar.gz \
     | tar xz --directory lib/
 
-cd lib/$libsodium_version/
+cd lib/libsodium-${libsodium_version}/
 
 ./configure
 make
