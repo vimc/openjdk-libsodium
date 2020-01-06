@@ -2,8 +2,9 @@
 set -e
 
 mkdir -p lib
-
-libsodium_version=$(<libsodium-version)
+here=$(dirname $0)
+config_path=$(realpath ./$here/libsodium-version)
+libsodium_version=$(<$config_path)
 
 curl https://download.libsodium.org/libsodium/releases/libsodium-${libsodium_version}.tar.gz \
     | tar xz --directory lib/
@@ -16,4 +17,3 @@ make check
 make install
 
 cd -
-
