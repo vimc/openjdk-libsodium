@@ -1,19 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
-mkdir -p lib
-here=$(dirname $0)
-config_path=$(realpath ./$here/libsodium-version)
-libsodium_version=$(<$config_path)
+HERE=$(dirname $0)
+CONFIG_PATH=$(realpath ./$HERE/libsodium-version)
+LIBSODIUM_VERSION=$(<$CONFIG_PATH)
 
-curl https://download.libsodium.org/libsodium/releases/libsodium-${libsodium_version}.tar.gz \
-    | tar xz --directory lib/
-
-cd lib/libsodium-${libsodium_version}/
-
-./configure
-make
-make check
-make install
-
-cd -
+mkdir /build &&
+  curl "https://download.libsodium.org/libsodium/releases/libsodium-${LIBSODIUM_VERSION}.tar.gz" |
+  tar xz --directory /build --strip 1 &&
+  cd /build &&
+  ./configure &&
+  make all check install &&
+  rm -rf /build

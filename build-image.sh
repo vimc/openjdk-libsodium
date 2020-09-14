@@ -1,18 +1,25 @@
 #!/usr/bin/env bash
 set -e
 
-GIT_ID=$(git rev-parse --short=7 HEAD)
-GIT_BRANCH=$(git symbolic-ref --short HEAD)
-REGISTRY=docker.montagu.dide.ic.ac.uk:5000
-NAME=openjdk-libsodium
-LIBSODIUM_VERSION=$(<libsodium-version)
+if [ "$BUILDKITE" = "true" ]; then
+    GIT_ID=${BUILDKITE_COMMIT:0:7}
+else
+    GIT_ID=$(git rev-parse --short=7 HEAD)
+fi
 
-APP_DOCKER_TAG=${REGISTRY}/${NAME}
-APP_DOCKER_COMMIT_TAG=${REGISTRY}/${NAME}:${GIT_ID}
-APP_DOCKER_BRANCH_TAG=${REGISTRY}/${NAME}:${GIT_BRANCH}
+if [ "$BUILDKITE" = "true" ]; then
+    GIT_BRANCH=$BUILDKITE_BRANCH
+else
+    GIT_BRANCH=$(git symbolic-ref --short HEAD)
+fi
+ORG=vimc
+NAME=openjdk-libsodium
+
+APP_DOCKER_TAG=${ORG}/${NAME}
+APP_DOCKER_COMMIT_TAG=${ORG}/${NAME}:${GIT_ID}
+APP_DOCKER_BRANCH_TAG=${ORG}/${NAME}:${GIT_BRANCH}
 
 docker build \
-    --build-arg libsodium_version=${LIBSODIUM_VERSION} \
     --pull \
     --tag ${APP_DOCKER_BRANCH_TAG} \
     --tag ${APP_DOCKER_COMMIT_TAG} \
